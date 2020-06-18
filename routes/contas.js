@@ -57,4 +57,26 @@ router.get("/:id", (req, res) => {
     });
 });
 
+router.delete("/:id", (req, res) => {
+    const { id } = req.params;
+    fs.readFile(file, "utf8", (err, data) => {
+        if (err) {
+            res.status(400).json({ mensagem: "Erro ao ler arquivo." });
+        }
+
+        let json = JSON.parse(data);
+        const contas = json.contas.filter((item) => item.id !== parseInt(id));
+
+        json.contas = contas;
+
+        fs.writeFile(file, JSON.stringify(json), (err) => {
+            if (err) {
+                res.status(400).json({ mensagem: err.message });
+            }
+        });
+
+        res.json({ mensagem: "Conta removida com sucesso." });
+    });
+});
+
 module.exports = router;
