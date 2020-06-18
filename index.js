@@ -1,57 +1,32 @@
 const express = require("express");
 const fs = require("fs");
+const rotasContas = require('./routes/contas.js');
 
 const app = express();
-const port = 3001;
+const port = 3000;
+
+global.file = "contas.json";
 
 app.use(express.json());
-
-app.post("/conta", (req, res) => {
-    fs.readFile("contas.json", "utf8", (err, data) => {
-        if (!err) {
-            try {
-                let json = JSON.parse(data);
-
-                const conta = { id: json.nextId++, ...req.body };
-
-                json.contas.push(conta);
-
-                fs.writeFile("contas.json", JSON.stringify(json), (err) => {
-                    if (err) {
-                        console.log(`Erro ao salvar conta: ${err}`);
-                    }
-                });
-
-                res.json({ mesagem: "Conta salva com sucesso." });
-            } catch (err) {
-                console.log(`Erro ao ler arquivo: ${err}`);
-                res.status(400).json({ mesagem: "Erro ao ler arquivo." });
-            }
-        }
-    });
-});
+app.use("/conta", rotasContas);
 
 app.listen(port, () => {
     try {
-        fs.readFile("contas.json", "utf8", (err) => {
+        fs.readFile(file, "utf8", (err) => {
             if (err) {
                 const initialJson = {
                     nextId: 1,
                     contas: [],
                 };
 
-                fs.writeFile(
-                    "contas.json",
-                    JSON.stringify(initialJson),
-                    (err) => {
-                        if (err) {
-                            console.log(`Erro ao criar arquivo: ${err}`);
-                            return;
-                        }
-
-                        console.log("Arquivo criado com sucesso.");
+                fs.writeFile(file, JSON.stringify(initialJson), (err) => {
+                    if (err) {
+                        console.log(`Erro ao criar arquivo: ${err}`);
+                        return;
                     }
-                );
+
+                    console.log("Arquivo criado com sucesso.");
+                });
             }
         });
 
