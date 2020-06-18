@@ -1,0 +1,22 @@
+{
+  "name": "my-bank-api",
+  "version": "1.0.0",
+  "description": "Simples API para simular operações bancárias",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/cleefsouza/my-bank-api.git"
+  },
+  "author": "cleefsouza",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/cleefsouza/my-bank-api/issues"
+  },
+  "homepage": "https://github.com/cleefsouza/my-bank-api#readme",
+  "dependencies": {
+    "express": "^4.17.1"
+  }
+}
