@@ -3,4 +3,4 @@
 
 Exercício do Bootcamp Desenvolvedor FullStack da IGTI
 
-Made with :purple_heart:    by [Cleef Souza](https://www.linkedin.com/in/aryosvalldo-cleef/)
+Made with :purple_heart: by [Cleef Souza](https://www.linkedin.com/in/aryosvalldo-cleef/)
