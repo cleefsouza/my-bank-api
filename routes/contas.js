@@ -1,13 +1,13 @@
-const express = require("express");
+import express from "express";
 const router = express.Router();
 
-const {
+import {
     lerArquivo,
     adicionarContaArquivo,
     removerContaArquivo,
     procurarContaId,
     procurarContaIndex,
-} = require("../src/utils/file");
+} from "../src/utils/file.js";
 
 router.post("/", (req, res) => {
     try {
@@ -153,4 +153,4 @@ router.put("/saque", (req, res) => {
     }
 });
 
-module.exports = router;
+export default router;

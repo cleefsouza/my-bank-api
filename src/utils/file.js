@@ -1,8 +1,8 @@
-const fs = require("fs");
+import fs from "fs";
 
-exports.criarArquivo = () => {
+export const criarArquivo = () => {
     try {
-        this.lerArquivo();
+        lerArquivo();
     } catch (err) {
         const initialJson = {
             nextId: 1,
@@ -17,7 +17,7 @@ exports.criarArquivo = () => {
     }
 };
 
-exports.lerArquivo = () => {
+export const lerArquivo = () => {
     try {
         return JSON.parse(fs.readFileSync(fileName, "utf8"));
     } catch (err) {
@@ -25,28 +25,28 @@ exports.lerArquivo = () => {
     }
 };
 
-exports.adicionarContaArquivo = (data) => {
+export const adicionarContaArquivo = (data) => {
     fs.writeFile(fileName, JSON.stringify(data), (err) => {
         if (err) throw err;
     });
 };
 
-exports.removerContaArquivo = (id) => {
+export const removerContaArquivo = (id) => {
     try {
-        let json = this.lerArquivo();
+        let json = lerArquivo();
         const contas = json.contas.filter((item) => item.id !== parseInt(id));
 
         json.contas = contas;
 
-        this.adicionarContaArquivo(json);
+        adicionarContaArquivo(json);
     } catch (err) {
         throw err;
     }
 };
 
-exports.procurarContaId = (id) => {
+export const procurarContaId = (id) => {
     try {
-        const json = this.lerArquivo();
+        const json = lerArquivo();
 
         const conta = json.contas.find((item) => item.id === id);
 
@@ -60,9 +60,9 @@ exports.procurarContaId = (id) => {
     }
 };
 
-exports.procurarContaIndex = (index) => {
+export const procurarContaIndex = (index) => {
     try {
-        const json = this.lerArquivo();
+        const json = lerArquivo();
 
         const conta = json.contas.findIndex((item) => item.id === index);
 

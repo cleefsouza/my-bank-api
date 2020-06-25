@@ -1,8 +1,8 @@
-const express = require("express");
-const winston = require("winston");
+import express from "express";
+import winston from "winston";
 
-const rotasContas = require("./routes/contas");
-const { criarArquivo } = require("./src/utils/file");
+import rotasContas from "./routes/contas.js";
+import { criarArquivo } from "./src/utils/file.js";
 
 const app = express();
 const port = 3000;
