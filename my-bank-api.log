@@ -1,0 +1,15 @@
+2020-06-25T04:13:31.552Z [my-bank-api] info: App start [Porta 3000]
+2020-06-25T04:13:43.268Z [my-bank-api] info: [GET] Listando contas [Total: 3].
+2020-06-25T04:13:49.608Z [my-bank-api] info: [POST] Conta salva com sucesso [Id: 5].
+2020-06-25T04:13:50.592Z [my-bank-api] info: [POST] Conta salva com sucesso [Id: 6].
+2020-06-25T04:13:54.724Z [my-bank-api] info: [GET] Buscando conta [Id: 1].
+2020-06-25T04:13:59.400Z [my-bank-api] error: [GET] Erro ao ler arquivo: Conta não encontrada.
+2020-06-25T04:14:06.842Z [my-bank-api] info: [DELETE] Conta removida [Id: 4].
+2020-06-25T04:14:11.882Z [my-bank-api] info: [DELETE] Conta removida [Id: 1].
+2020-06-25T04:14:16.023Z [my-bank-api] info: [PUT] Conta atualizada [Id: 6].
+2020-06-25T04:14:21.438Z [my-bank-api] error: [PUT] Erro ao atualizar conta: Conta não encontrada.
+2020-06-25T04:14:27.812Z [my-bank-api] error: [PUT] Erro ao atualizar saldo: Valor inválido para depósito
+2020-06-25T04:14:33.119Z [my-bank-api] info: [PUT] Depósito realizado [Id 3, Valor: R$ 1130].
+2020-06-25T04:14:37.109Z [my-bank-api] info: [PUT] Saque realizado [Id: 3, Valor: 20].
+2020-06-25T04:14:41.647Z [my-bank-api] error: [PUT] Erro ao atualizar saldo: Saldo insuficiente
+2020-06-25T04:14:45.657Z [my-bank-api] info: [GET] Listando contas [Total: 4].

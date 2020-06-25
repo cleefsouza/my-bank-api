@@ -9,24 +9,24 @@ exports.criarArquivo = () => {
             contas: [],
         };
 
-        fs.writeFile(global.fileName, JSON.stringify(initialJson), (err) => {
+        fs.writeFile(fileName, JSON.stringify(initialJson), (err) => {
             if (err) throw "Erro ao criar arquivo.";
 
-            console.log("Arquivo criado com sucesso.");
+            logger.info("Arquivo criado com sucesso.");
         });
     }
 };
 
 exports.lerArquivo = () => {
     try {
-        return JSON.parse(fs.readFileSync(global.fileName, "utf8"));
+        return JSON.parse(fs.readFileSync(fileName, "utf8"));
     } catch (err) {
         throw err;
     }
 };
 
 exports.adicionarContaArquivo = (data) => {
-    fs.writeFile(global.fileName, JSON.stringify(data), (err) => {
+    fs.writeFile(fileName, JSON.stringify(data), (err) => {
         if (err) throw err;
     });
 };

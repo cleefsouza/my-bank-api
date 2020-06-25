@@ -1,6 +1,5 @@
 const express = require("express");
 const router = express.Router();
-const fs = require("fs");
 
 const {
     lerArquivo,
@@ -19,20 +18,28 @@ router.post("/", (req, res) => {
 
         adicionarContaArquivo(json);
 
-        res.json({ mensagem: "Conta salva com sucesso." });
+        res.json({ mensagem: "Conta salva com sucesso" });
+        logger.info(
+            `[${req.method}] Conta salva com sucesso [Id: ${conta.id}].`
+        );
     } catch (err) {
-        res.status(400).json({ mensagem: "Erro ao salvar conta.", erro: err });
+        res.status(400).json({ mensagem: "Erro ao salvar conta", erro: err });
+        logger.error(`[${req.method}] Erro ao salvar conta: ${err}`);
     }
 });
 
-router.get("/", (_req, res) => {
+router.get("/", (req, res) => {
     try {
         let json = lerArquivo();
         delete json.nextId;
 
         res.json(json);
+        logger.info(
+            `[${req.method}] Listando contas [Total: ${json.contas.length}].`
+        );
     } catch (err) {
-        res.status(400).json({ mensagem: "Erro ao ler arquivo.", erro: err });
+        res.status(400).json({ mensagem: "Erro ao ler arquivo", erro: err });
+        logger.error(`[${req.method}] Erro ao ler arquivo: ${err}`);
     }
 });
 
@@ -43,8 +50,10 @@ router.get("/:id", (req, res) => {
         const conta = procurarContaId(parseInt(id));
 
         res.json(conta);
+        logger.info(`[${req.method}] Buscando conta [Id: ${conta.id}].`);
     } catch (err) {
-        res.status(400).json({ mensagem: "Erro ao ler arquivo.", erro: err });
+        res.status(400).json({ mensagem: "Erro ao ler arquivo", erro: err });
+        logger.error(`[${req.method}] Erro ao ler arquivo: ${err}`);
     }
 });
 
@@ -54,9 +63,11 @@ router.delete("/:id", (req, res) => {
 
         removerContaArquivo(id);
 
-        res.json({ mensagem: "Conta removida com sucesso." });
+        res.json({ mensagem: "Conta removida com sucesso" });
+        logger.info(`[${req.method}] Conta removida [Id: ${id}].`);
     } catch (err) {
-        res.status(400).json({ mensagem: "Erro ao remover conta.", erro: err });
+        res.status(400).json({ mensagem: "Erro ao remover conta", erro: err });
+        logger.error(`[${req.method}] Erro ao remover conta: ${err}`);
     }
 });
 
@@ -72,12 +83,15 @@ router.put("/", (req, res) => {
 
         adicionarContaArquivo(json);
 
-        res.json({ mensagem: "Conta atualizada com sucesso." });
+        res.json({ mensagem: "Conta atualizada com sucesso" });
+        logger.info(`[${req.method}] Conta atualizada [Id: ${body.id}].`);
     } catch (err) {
         res.status(400).json({
-            mensagem: "Erro ao atualizar conta.",
+            mensagem: "Erro ao atualizar conta",
             erro: err,
         });
+
+        logger.error(`[${req.method}] Erro ao atualizar conta: ${err}`);
     }
 });
 
@@ -88,20 +102,25 @@ router.put("/deposito", (req, res) => {
         let json = lerArquivo();
         const index = procurarContaIndex(body.id);
 
-        if (body.saldo <= 0) {
-            throw "Valor inválido para depósito.";
+        if (body.valor <= 0) {
+            throw "Valor inválido para depósito";
         }
 
-        json.contas[index].saldo += body.saldo;
+        json.contas[index].saldo += body.valor;
 
         adicionarContaArquivo(json);
 
         res.json({ mensagem: "Saldo atualizado com sucesso!" });
+        logger.info(
+            `[${req.method}] Depósito realizado [Id ${body.id}, Valor: R$ ${body.valor}].`
+        );
     } catch (err) {
         res.status(400).json({
-            mensagem: "Erro ao atualizar saldo.",
+            mensagem: "Erro ao atualizar saldo",
             erro: err,
         });
+
+        logger.error(`[${req.method}] Erro ao atualizar saldo: ${err}`);
     }
 });
 
@@ -113,7 +132,7 @@ router.put("/saque", (req, res) => {
         const index = procurarContaIndex(body.id);
 
         if (body.valor <= 0 || json.contas[index].saldo <= body.valor) {
-            throw "Saldo insuficiente.";
+            throw "Saldo insuficiente";
         }
 
         json.contas[index].saldo -= body.valor;
@@ -121,11 +140,16 @@ router.put("/saque", (req, res) => {
         adicionarContaArquivo(json);
 
         res.json({ mensagem: "Saldo atualizado com sucesso!" });
+        logger.info(
+            `[${req.method}] Saque realizado [Id: ${body.id}, Valor: ${body.valor}].`
+        );
     } catch (err) {
         res.status(400).json({
-            mensagem: "Erro ao atualizar saldo.",
+            mensagem: "Erro ao atualizar saldo",
             erro: err,
         });
+
+        logger.error(`[${req.method}] Erro ao atualizar saldo: ${err}`);
     }
 });
 
