@@ -110,7 +110,7 @@ router.put("/deposito", (req, res) => {
 
         adicionarContaArquivo(json);
 
-        res.json({ mensagem: "Saldo atualizado com sucesso!" });
+        res.json({ mensagem: "Saldo atualizado com sucesso" });
         logger.info(
             `[${req.method}] Depósito realizado [Id ${body.id}, Valor: R$ ${body.valor}].`
         );
@@ -139,7 +139,7 @@ router.put("/saque", (req, res) => {
 
         adicionarContaArquivo(json);
 
-        res.json({ mensagem: "Saldo atualizado com sucesso!" });
+        res.json({ mensagem: "Saldo atualizado com sucesso" });
         logger.info(
             `[${req.method}] Saque realizado [Id: ${body.id}, Valor: ${body.valor}].`
         );
