@@ -1,6 +1,7 @@
 import express from "express";
 import winston from "winston";
 import swaggerUi from "swagger-ui-express";
+import cors from "cors";
 
 import rotasContas from "./routes/contas.js";
 import swaggerDoc from "./doc.js";
@@ -30,6 +31,8 @@ global.logger = winston.createLogger({
 });
 
 app.use(express.json());
+app.use(cors());
+
 app.use("/conta", rotasContas);
 app.use("/doc", swaggerUi.serve, swaggerUi.setup(swaggerDoc));
 
